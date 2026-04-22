@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malik Al-Nasir — O Pólvora Branca</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #1a0f07;
+    --parch:     #e8d9b8;
+    --parch2:    #d6c49a;
+    --parch3:    #c4ae7f;
+    --crimson:   #8b1a1a;
+    --crimson2:  #6b0f0f;
+    --gold:      #b8922a;
+    --gold2:     #d4a93c;
+    --gold-lt:   #e8c96a;
+    --ash:       #3a2a1a;
+    --smoke:     #5a4030;
+    --border:    #7a5a30;
+    --glow:      rgba(184,146,42,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d0805;
+    font-family: 'IM Fell English', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ════ HEADER BANNER ════ */
+  .header {
+    position: relative;
+    background: linear-gradient(160deg, #1a0800 0%, #2d1005 40%, #1a0800 100%);
+    border: 2px solid var(--gold);
+    border-bottom: none;
+    padding: 0;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 280px;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(184,146,42,0.04) 40px, rgba(184,146,42,0.04) 41px),
+      repeating-linear-gradient(0deg,  transparent, transparent 40px, rgba(184,146,42,0.04) 40px, rgba(184,146,42,0.04) 41px);
+  }
+
+  .portrait-wrap {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .portrait-wrap::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, transparent 70%, #1a0800 100%),
+                linear-gradient(to bottom, rgba(26,8,0,0.3) 0%, transparent 30%, transparent 70%, rgba(26,8,0,0.5) 100%);
+  }
+
+  .portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: sepia(40%) contrast(1.1) brightness(0.85);
+  }
+
+  .header-text {
+    padding: 2rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .epithet {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    opacity: 0.8;
+  }
+
+  .char-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--parch);
+    text-shadow: 0 0 30px rgba(184,146,42,0.4), 2px 2px 0 #0d0805;
+    margin-bottom: 0.3rem;
+  }
+
+  .char-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: var(--gold2);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.4rem;
+  }
+
+  .header-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .badge {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--gold);
+    color: var(--gold-lt);
+    background: rgba(184,146,42,0.08);
+  }
+
+  .badge.red {
+    border-color: var(--crimson);
+    color: #e06060;
+    background: rgba(139,26,26,0.15);
+  }
+
+  .header-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin-top: auto;
+  }
+
+  .hstat {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(184,146,42,0.3);
+    padding: 0.5rem;
+    text-align: center;
+  }
+
+  .hstat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+
+  .hstat-val {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: var(--parch);
+    line-height: 1;
+  }
+
+  .hstat-val .plus { font-size: 0.75rem; color: var(--gold2); }
+
+  /* ════ PARCHMENT BODY ════ */
+  .parchment {
+    background:
+      radial-gradient(ellipse at 10% 10%, #e9d9b4 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 90%, #d4be8c 0%, transparent 60%),
+      linear-gradient(160deg, #e0cfa0 0%, #d6c48e 50%, #cdb87a 100%);
+    border: 2px solid var(--gold);
+    border-top: none;
+    padding: 2rem;
+    position: relative;
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.8);
+  }
+
+  /* torn edge top */
+  .parchment::before {
+    content: '';
+    position: absolute;
+    top: -6px; left: 0; right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--gold) 0px, var(--gold) 8px,
+      var(--gold2) 8px, var(--gold2) 16px
+    );
+    opacity: 0.6;
+  }
+
+  /* ════ SECTION TITLES ════ */
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--crimson2);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    border-bottom: 2px solid var(--crimson);
+    padding-bottom: 0.35rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .section-title::before {
+    content: '❧';
+    margin-right: 0.5rem;
+    color: var(--gold);
+    font-size: 1rem;
+  }
+
+  .section-title::after {
+    content: '❧';
+    margin-left: 0.5rem;
+    color: var(--gold);
+    font-size: 1rem;
+    transform: scaleX(-1);
+    display: inline-block;
+  }
+
+  /* ════ ATTRIBUTES BLOCK ════ */
+  .attributes-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .attr-box {
+    background: linear-gradient(160deg, #2a1508 0%, #1a0e06 100%);
+    border: 1px solid var(--gold);
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    position: relative;
+    box-shadow: inset 0 1px 0 rgba(184,146,42,0.2), 0 4px 12px rgba(0,0,0,0.5);
+  }
+
+  .attr-box::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 10%; right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold2), transparent);
+  }
+
+  .attr-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .attr-score {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.7rem;
+    color: var(--parch);
+    line-height: 1;
+    text-shadow: 0 0 12px rgba(184,146,42,0.3);
+  }
+
+  .attr-mod {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    color: var(--gold2);
+    margin-top: 0.15rem;
+  }
+
+  /* ════ TWO-COLUMN LAYOUT ════ */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* ════ STAT ROWS ════ */
+  .stat-list { list-style: none; }
+
+  .stat-list li {
+    display: flex;
+    align-items: baseline;
+    padding: 0.4rem 0;
+    border-bottom: 1px dotted var(--border);
+    font-size: 0.9rem;
+    gap: 0.5rem;
+  }
+
+  .stat-list li:last-child { border-bottom: none; }
+
+  .stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ash);
+    flex: 1;
+    text-transform: uppercase;
+  }
+
+  .stat-val {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.95rem;
+    color: var(--crimson2);
+    font-weight: 700;
+  }
+
+  .stat-note {
+    font-size: 0.75rem;
+    color: var(--smoke);
+    font-style: italic;
+  }
+
+  /* ════ ATTACK CARDS ════ */
+  .attack-card {
+    background: linear-gradient(135deg, #1e0c06 0%, #150a04 100%);
+    border: 1px solid var(--gold);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .attack-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 40px; height: 100%;
+    background: linear-gradient(to left, rgba(184,146,42,0.07), transparent);
+  }
+
+  .attack-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.9rem;
+    color: var(--gold-lt);
+    margin-bottom: 0.4rem;
+  }
+
+  .attack-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .attack-stat { font-family: 'Cinzel', serif; font-size: 0.72rem; }
+  .attack-stat span { color: var(--gold2); font-size: 0.85rem; font-weight: 700; }
+  .attack-stat label { color: #9a7050; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.62rem; }
+
+  .attack-mastery {
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    color: #8a6840;
+    font-style: italic;
+  }
+
+  .attack-mastery strong { color: var(--crimson); font-style: normal; }
+
+  /* ════ TRAIT CARDS ════ */
+  .trait-block {
+    background: rgba(0,0,0,0.07);
+    border-left: 3px solid var(--gold);
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .trait-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--crimson2);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  .trait-desc {
+    font-size: 0.82rem;
+    color: var(--ash);
+    line-height: 1.55;
+  }
+
+  /* ════ VITAAR SPECIAL ════ */
+  .vitaar-box {
+    background: linear-gradient(135deg, #1f0b08 0%, #2a0e0a 100%);
+    border: 2px solid var(--crimson);
+    padding: 1rem 1.2rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .vitaar-box::before {
+    content: '⬟ VITAAR ⬟';
+    position: absolute;
+    top: -0.65rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--crimson2);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-lt);
+    padding: 0.1rem 0.8rem;
+    white-space: nowrap;
+  }
+
+  .vitaar-body {
+    color: #dbb090;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .vitaar-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+  }
+
+  .vitaar-opt {
+    border: 1px solid rgba(139,26,26,0.5);
+    padding: 0.4rem 0.6rem;
+    background: rgba(0,0,0,0.2);
+    font-size: 0.8rem;
+    color: #c08060;
+  }
+
+  .vitaar-opt strong { color: #e08060; font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.06em; }
+
+  /* ════ SKILLS GRID ════ */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .skill-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0;
+    border-bottom: 1px dotted rgba(122,90,48,0.3);
+    font-size: 0.82rem;
+  }
+
+  .skill-pip {
+    width: 10px; height: 10px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: transparent;
+  }
+
+  .skill-pip.proficient { background: var(--gold); border-color: var(--gold2); }
+  .skill-pip.expert { background: var(--crimson); border-color: #e04040; box-shadow: 0 0 4px rgba(139,26,26,0.5); }
+
+  .skill-name { flex: 1; color: var(--ash); font-family: 'Cinzel', serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .skill-mod { font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; color: var(--crimson2); min-width: 2rem; text-align: right; }
+  .skill-attr { font-size: 0.6rem; color: var(--smoke); font-style: italic; }
+
+  /* ════ HP TRACKER ════ */
+  .hp-tracker {
+    background: linear-gradient(160deg, #1f0a06 0%, #2a1008 100%);
+    border: 2px solid var(--crimson);
+    padding: 1.2rem;
+    text-align: center;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .hp-tracker label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .hp-main {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 3.5rem;
+    color: var(--crimson);
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(139,26,26,0.5);
+  }
+
+  .hp-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    color: var(--gold2);
+    letter-spacing: 0.1em;
+    margin-top: 0.2rem;
+  }
+
+  .hp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .hp-box {
+    border: 1px solid rgba(184,146,42,0.3);
+    padding: 0.4rem;
+    text-align: center;
+  }
+
+  .hp-box label {
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    margin-bottom: 0.1rem;
+  }
+
+  .hp-box .val {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    color: var(--parch);
+  }
+
+  /* ════ LORE / HISTÓRIA ════ */
+  .lore-section {
+    background: linear-gradient(160deg, #1a0f07 0%, #0f0804 100%);
+    border: 1px solid var(--gold);
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .lore-section::before {
+    content: '"';
+    position: absolute;
+    top: 0.5rem; left: 1rem;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 5rem;
+    color: rgba(184,146,42,0.08);
+    line-height: 1;
+  }
+
+  .lore-text {
+    color: #c0a070;
+    font-size: 0.88rem;
+    line-height: 1.85;
+  }
+
+  .lore-text p { margin-bottom: 0.9rem; }
+  .lore-text p:last-child { margin-bottom: 0; }
+
+  .lore-text em { color: var(--gold2); font-style: italic; }
+
+  /* ════ DECORATIVE DIVIDERS ════ */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 1.8rem 0;
+    opacity: 0.6;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .divider span {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--gold);
+  }
+
+  /* ════ EQUIPMENT ════ */
+  .equipment-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+
+  .equip-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid rgba(122,90,48,0.3);
+    background: rgba(0,0,0,0.06);
+    font-size: 0.82rem;
+    color: var(--ash);
+  }
+
+  .equip-item::before {
+    content: '⚔';
+    font-size: 0.65rem;
+    color: var(--gold);
+  }
+
+  /* ════ SAVING THROWS ════ */
+  .save-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0;
+    font-size: 0.82rem;
+    border-bottom: 1px dotted rgba(122,90,48,0.3);
+  }
+  .save-row:last-child { border-bottom: none; }
+  .save-name { flex: 1; font-family: 'Cinzel', serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ash); }
+  .save-mod { font-family: 'Cinzel Decorative', serif; font-size: 0.9rem; color: var(--crimson2); min-width: 2rem; text-align: right; }
+
+  .pip { width: 9px; height: 9px; border: 1px solid var(--border); border-radius: 50%; flex-shrink: 0; }
+  .pip.on { background: var(--gold); border-color: var(--gold2); }
+
+  /* ════ LEGEND ════ */
+  .legend {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    color: var(--smoke);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 0.35rem; }
+
+  /* ════ ANIMATIONS ════ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .header   { animation: fadeUp 0.5s ease both; }
+  .parchment { animation: fadeUp 0.5s ease 0.15s both; }
+
+  /* ════ SCROLLBARS ════ */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0d0805; }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+  /* ════ RESPONSIVE ════ */
+  @media (max-width: 700px) {
+    .header { grid-template-columns: 1fr; }
+    .portrait-wrap { height: 220px; }
+    .attributes-grid { grid-template-columns: repeat(3, 1fr); }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    .header-stats { grid-template-columns: repeat(2, 1fr); }
+    .char-name { font-size: 1.6rem; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ HEADER ══ -->
+  <div class="header">
+    <div class="portrait-wrap">
+      <img class="portrait" src="https://c.l3n.co/cV50y5.jpeg" alt="Malik Al-Nasir" onerror="this.style.background='#2a1008';this.style.minHeight='280px'">
+    </div>
+    <div class="header-text">
+      <div class="epithet">Herói da Resistência · Capitão da Vitória Seca</div>
+      <div class="char-name">Malik Al-Nasir</div>
+      <div class="char-subtitle">O Pólvora Branca</div>
+
+      <div class="header-badges">
+        <span class="badge">Ladino (Ladrão) Nível 6</span>
+        <span class="badge">Qnari</span>
+        <span class="badge">Artista</span>
+        <span class="badge red">Neutro e Bom</span>
+      </div>
+
+      <div class="header-stats">
+        <div class="hstat">
+          <div class="hstat-label">C. Armadura</div>
+          <div class="hstat-val">16</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-label">Iniciativa</div>
+          <div class="hstat-val"><span class="plus">+</span>4</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-label">Deslocamento</div>
+          <div class="hstat-val" style="font-size:0.85rem;padding-top:0.2rem;">9 m</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-label">Bôn. Prof.</div>
+          <div class="hstat-val"><span class="plus">+</span>3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PARCHMENT BODY ══ -->
+  <div class="parchment">
+
+    <!-- ATTRIBUTES -->
+    <div class="section-title">Atributos</div>
+    <div class="attributes-grid">
+      <div class="attr-box">
+        <div class="attr-name">FOR</div>
+        <div class="attr-score">10</div>
+        <div class="attr-mod">+0</div>
+      </div>
+      <div class="attr-box" style="border-color:var(--gold2);box-shadow:inset 0 0 12px rgba(184,146,42,0.12),0 4px 12px rgba(0,0,0,0.5);">
+        <div class="attr-name">DES</div>
+        <div class="attr-score" style="color:var(--gold-lt);text-shadow:0 0 18px rgba(184,146,42,0.5);">18</div>
+        <div class="attr-mod" style="color:var(--gold-lt);">+4</div>
+      </div>
+      <div class="attr-box">
+        <div class="attr-name">CON</div>
+        <div class="attr-score">14</div>
+        <div class="attr-mod">+2</div>
+      </div>
+      <div class="attr-box">
+        <div class="attr-name">INT</div>
+        <div class="attr-score">10</div>
+        <div class="attr-mod">+0</div>
+      </div>
+      <div class="attr-box">
+        <div class="attr-name">SAB</div>
+        <div class="attr-score">12</div>
+        <div class="attr-mod">+1</div>
+      </div>
+      <div class="attr-box">
+        <div class="attr-name">CAR</div>
+        <div class="attr-score">16</div>
+        <div class="attr-mod">+3</div>
+      </div>
+    </div>
+
+    <div class="divider"><span>✦</span></div>
+
+    <!-- HP + SAVES -->
+    <div class="two-col" style="margin-bottom:2rem;">
+      <div>
+        <div class="section-title">Pontos de Vida</div>
+        <div class="hp-tracker">
+          <label>Pontos de Vida Máximos</label>
+          <div class="hp-main">45</div>
+          <div class="hp-sub">8+2 no Nível 1 · 5+2 por Nível subsequente</div>
+          <div class="hp-grid">
+            <div class="hp-box">
+              <label>Dado de Vida</label>
+              <div class="val">6d8</div>
+            </div>
+            <div class="hp-box">
+              <label>PV Atuais</label>
+              <div class="val">__</div>
+            </div>
+            <div class="hp-box">
+              <label>PV Temporários</label>
+              <div class="val">__</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Testes de Resistência</div>
+        <div style="background:rgba(0,0,0,0.06);border:1px solid rgba(122,90,48,0.4);padding:0.8rem;">
+          <div class="save-row"><div class="pip on"></div><div class="save-name">Destreza</div><div class="save-mod">+7</div></div>
+          <div class="save-row"><div class="pip on"></div><div class="save-name">Inteligência</div><div class="save-mod">+3</div></div>
+          <div class="save-row"><div class="pip"></div><div class="save-name">Força</div><div class="save-mod">+0</div></div>
+          <div class="save-row"><div class="pip"></div><div class="save-name">Constituição</div><div class="save-mod">+2</div></div>
+          <div class="save-row"><div class="pip"></div><div class="save-name">Sabedoria</div><div class="save-mod">+1</div></div>
+          <div class="save-row"><div class="pip"></div><div class="save-name">Carisma</div><div class="save-mod">+3</div></div>
+        </div>
+        <div style="margin-top:1rem;">
+          <div class="section-title">Movimentação Passiva</div>
+          <ul class="stat-list">
+            <li><span class="stat-label">Percepção Passiva</span><span class="stat-val">11</span></li>
+            <li><span class="stat-label">Investigação Passiva</span><span class="stat-val">10</span></li>
+            <li><span class="stat-label">Percepção (ativa)</span><span class="stat-val">+4</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"><span>⚔</span></div>
+
+    <!-- ATTACKS -->
+    <div class="section-title">Ataques</div>
+
+    <div class="attack-card">
+      <div class="attack-name">⚔ Rapieira (Acuidade)</div>
+      <div class="attack-row">
+        <div class="attack-stat"><label>Ataque</label><br><span>+7</span> <span style="color:#9a7050;font-size:0.75rem;">(+8 c/ Vitaar: Wyvern)</span></div>
+        <div class="attack-stat"><label>Dano</label><br><span>1d8 +5</span></div>
+        <div class="attack-stat"><label>Tipo</label><br><span style="font-size:0.78rem;color:#c09070;">Perfurante</span></div>
+        <div class="attack-stat"><label>Sneak Attack</label><br><span>+3d6</span></div>
+      </div>
+      <div class="attack-mastery"><strong>Maestria — Vex:</strong> Ao atingir, você ganha vantagem na próxima jogada de ataque contra o alvo antes do fim do seu próximo turno.</div>
+    </div>
+
+    <div class="attack-card">
+      <div class="attack-name">🗡 Adaga (Acuidade / Leve)</div>
+      <div class="attack-row">
+        <div class="attack-stat"><label>Ataque</label><br><span>+7</span></div>
+        <div class="attack-stat"><label>Dano</label><br><span>1d4 +5</span></div>
+        <div class="attack-stat"><label>Tipo</label><br><span style="font-size:0.78rem;color:#c09070;">Perfurante</span></div>
+        <div class="attack-stat"><label>Alcance</label><br><span style="font-size:0.78rem;color:#c09070;">Corpo / 6m</span></div>
+      </div>
+      <div class="attack-mastery"><strong>Maestria — Nick:</strong> O ataque adicional de arma leve pode ser feito como parte da sua Ação de Ataque, liberando a Ação Bônus.</div>
+    </div>
+
+    <div class="divider"><span>✦</span></div>
+
+    <!-- VITAAR -->
+    <div class="vitaar-box">
+      <div class="vitaar-body">
+        <strong style="color:var(--gold2);font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:0.08em;">Aplicação (Ação):</strong> Receba <strong>+1 em todas as rolagens de dano</strong>. Escolha um efeito adicional:
+        <div class="vitaar-options">
+          <div class="vitaar-opt"><strong>🐉 Wyvern</strong><br>+1 em jogadas de ataque</div>
+          <div class="vitaar-opt"><strong>🕷 Aranha do Abismo</strong><br>Dado extra de dano em acertos críticos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section-title">Perícias</div>
+    <div class="legend">
+      <div class="legend-item"><div class="skill-pip expert"></div> Especialização (dobrado)</div>
+      <div class="legend-item"><div class="skill-pip proficient"></div> Proficiência</div>
+      <div class="legend-item"><div class="skill-pip"></div> Sem proficiência</div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-row"><div class="skill-pip expert"></div><span class="skill-name">Acrobacia</span><span class="skill-attr">DES</span><span class="skill-mod">+11</span></div>
+      <div class="skill-row"><div class="skill-pip expert"></div><span class="skill-name">Persuasão</span><span class="skill-attr">CAR</span><span class="skill-mod">+10</span></div>
+      <div class="skill-row"><div class="skill-pip expert"></div><span class="skill-name">Furtividade</span><span class="skill-attr">DES</span><span class="skill-mod">+11</span></div>
+      <div class="skill-row"><div class="skill-pip expert"></div><span class="skill-name">Enganação</span><span class="skill-attr">CAR</span><span class="skill-mod">+10</span></div>
+      <div class="skill-row"><div class="skill-pip proficient"></div><span class="skill-name">Intimidação</span><span class="skill-attr">CAR</span><span class="skill-mod">+6</span></div>
+      <div class="skill-row"><div class="skill-pip proficient"></div><span class="skill-name">Atletismo</span><span class="skill-attr">FOR</span><span class="skill-mod">+3</span></div>
+      <div class="skill-row"><div class="skill-pip proficient"></div><span class="skill-name">Atuação</span><span class="skill-attr">CAR</span><span class="skill-mod">+6</span></div>
+      <div class="skill-row"><div class="skill-pip proficient"></div><span class="skill-name">Percepção</span><span class="skill-attr">SAB</span><span class="skill-mod">+4</span></div>
+      <div class="skill-row"><div class="skill-pip"></div><span class="skill-name">Arcanismo</span><span class="skill-attr">INT</span><span class="skill-mod">+0</span></div>
+      <div class="skill-row"><div class="skill-pip"></div><span class="skill-name">História</span><span class="skill-attr">INT</span><span class="skill-mod">+0</span></div>
+      <div class="skill-row"><div class="skill-pip proficient"></div><span class="skill-name">Prestidigitação</span><span class="skill-attr">DES</span><span class="skill-mod">+7</span></div>
+      <div class="skill-row"><div class="skill-pip"></div><span class="skill-name">Intuição</span><span class="skill-attr">SAB</span><span class="skill-mod">+1</span></div>
+    </div>
+
+    <div class="divider"><span>✦</span></div>
+
+    <!-- FEATURES -->
+    <div class="two-col">
+      <div>
+        <div class="section-title">Traços Raciais Qnari</div>
+        <div class="trait-block">
+          <div class="trait-name">Fortitude Qnari</div>
+          <div class="trait-desc">Vantagem em salvamentos contra veneno e resistência a dano de veneno.</div>
+        </div>
+        <div class="trait-block">
+          <div class="trait-name">Pé no Chão</div>
+          <div class="trait-desc">Vantagem para resistir à condição Caído (ser derrubado).</div>
+        </div>
+        <div class="trait-block">
+          <div class="trait-name">Presença Intimidadora</div>
+          <div class="trait-desc">Proficiência em Intimidação concedida pela espécie.</div>
+        </div>
+        <div class="trait-block">
+          <div class="trait-name">Vitaar</div>
+          <div class="trait-desc">Pintura de guerra tradicional Qnari. Aplique como ação para ativar bônus de combate (ver bloco acima).</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Características de Ladino</div>
+        <div class="trait-block">
+          <div class="trait-name">Especialização (Expertise)</div>
+          <div class="trait-desc">Bônus de proficiência dobrado em <em>Acrobacia, Persuasão, Furtividade</em> e <em>Enganação</em>.</div>
+        </div>
+        <div class="trait-block">
+          <div class="trait-name">Ação Ardilosa</div>
+          <div class="trait-desc">Ação Bônus para Disparada, Desengajar ou Esconder.</div>
+        </div>
+        <div class="trait-block">
+          <div class="trait-name">Golpe Ardiloso (Cunning Strike)</div>
+          <div class="trait-desc">Sacrifique 1d6 do Ataque Furtivo para aplicar <em>Tropeço</em> (derruba o alvo) ou <em>Retirada</em>.</div>
+        </div>
+        <div class="trait-block">
+          <div class="trait-name">Mãos Rápidas</div>
+          <div class="trait-desc">Use ferramentas de ladrão ou objetos como Ação Bônus.</div>
+        </div>
+        <div class="trait-block">
+          <div class="trait-name">Andarilho de Telhados</div>
+          <div class="trait-desc">Escalada rápida e saltos baseados em Destreza sem custo de movimento adicional.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"><span>⚔</span></div>
+
+    <!-- TALENTS + EQUIPMENT -->
+    <div class="two-col">
+      <div>
+        <div class="section-title">Talentos</div>
+        <div class="trait-block">
+          <div class="trait-name">Músico (Antecedente)</div>
+          <div class="trait-desc">Após um descanso curto ou longo, você e seus aliados que puderem ouvi-lo ganham <em>Inspiração Heroica</em>.</div>
+        </div>
+        <div class="trait-block">
+          <div class="trait-name">Aumento de Atributo (Nível 4)</div>
+          <div class="trait-desc">+2 em Destreza, elevando o atributo para 18.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Equipamento</div>
+        <div class="equipment-list">
+          <div class="equip-item">Rapieira</div>
+          <div class="equip-item">Couro Batido (CA 16)</div>
+          <div class="equip-item">Adaga ×2</div>
+          <div class="equip-item">Ferramentas de Ladrão</div>
+          <div class="equip-item">Suprimentos de Vitaar</div>
+          <div class="equip-item">Instrumento Musical</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"><span>✦</span></div>
+
+    <!-- LORE -->
+    <div class="section-title">História — O Pólvora Branca</div>
+    <div class="lore-section">
+      <div class="lore-text">
+        <p>O Qnari Malik esteve entre os primeiros a ver a chegada dos exércitos <em>Alzibus</em>, entre os primeiros a ser escravizados, e foi um dos primeiros a se rebelar e formar uma resistência — eternizado como o <em>"Pólvora Branca"</em>.</p>
+        <p>Escravizado ao lado dos pais e irmã, o coração de Malik teve uma reação adversa ao restante de sua espécie: a teimosia, nata dos Qnari, tomou forma de rebeldia em vez de submissão aos seus invasores. Enquanto seus pais aprenderam a sobreviver dentro das correntes, Malik, ainda criança, buscou apenas se libertar.</p>
+        <p>Os primeiros anos foram os mais difíceis. Seus pais, <em>Neturo</em> e <em>Zeenid</em>, fizeram o possível para acalentar a chama do garoto, tomando por ele os castigos físicos que suas sabotagens acarretavam. Nunca houve ressentimento — apenas amor e o medo de serem separados do filho. Foi nessas cenas que Malik aprendeu que sua rebelião teria que ser <em>sutil como um suspiro</em>, não gritos escandalosos contra uma montanha de opressão.</p>
+        <p>Até sua maioridade, era um escravo exemplar: carismático e atencioso. A surpresa foi quando, na calada da noite, a família fugiu entre as sombras das tochas, levando uma dúzia dos seus. Viajaram sem destino até o litoral, onde encontraram a tripulação do navio pirata, a <em>Vitória Seca</em>. O velho capitão, igualmente rebelde, acolheu a todos. Malik retribuiu com trabalho, lealdade e carisma — e com o passar do leme, nasceu o <em>Pólvora Branca</em>.</p>
+        <p>Os anos que se seguiram foram os melhores e os mais perigosos. Pai, mãe, filho e <em>Elid</em>, sua irmã — juntos no mesmo navio, na mesma causa, na mesma guerra impossível contra os Alzibus. O fim foi igualmente trágico e agridoce: quando o Necro-Império os alcançou, veio com força suficiente para não deixar nada para trás. A família caiu junto. Um destino que nenhum deles quisera que fosse diferente.</p>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div style="text-align:center;margin-top:1.5rem;opacity:0.4;">
+      <div style="font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;">
+        Malik Al-Nasir · Ladino Nível 6 · D&D 5e 2024
+      </div>
+    </div>
+
+  </div><!-- /parchment -->
+</div><!-- /page -->
+</body>
+</html>
