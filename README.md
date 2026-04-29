@@ -1,4 +1,4 @@
-![Malik](https://c.l3n.co/cV50y5.jpeg)
+![Malik](https://a.l3n.co/cKY5BF.jpg)
 
 ### Informações Básicas
 
